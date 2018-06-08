@@ -1,0 +1,145 @@
+// Variables
+$nav-height: 50px;
+$highlight-color: #ed8d32;
+
+// Global Styles
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Avenir Next', 'Helvetica Neue Light', helvetica, Arial, sans-serif;
+    font-weight: 300;
+    background: #f8f8f8;
+}
+
+.stream {
+    background-color: black;
+    color: white;
+    overflow:scroll; height:400px;
+
+    .item {
+        margin-left: 5px;
+    }
+}
+
+// Navigation
+nav {
+    width: 100%;
+    height: $nav-height;
+    line-height: $nav-height;
+    border-bottom: 1px solid #ececec;
+    margin-bottom: 15px;
+    background: #fff;
+
+    a {
+        color: #777;
+        text-decoration: none;
+        padding: 0 10px;
+        margin-left: 4px;
+        font-size: 14px;
+
+        &:first-child {
+            margin-left: none;
+        }
+
+        &:hover {
+            color: #999;
+            cursor: pointer;
+        }
+    }
+
+    a.branding {
+        font-size: 17px;
+        color: #333;
+
+        .branding_icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: text-bottom;
+        }
+    }
+}
+
+// JSON Display
+.event_payload {
+    width: 100%;
+    font-family: Courier New, Courier, monospace;
+    overflow-x: scroll;
+    overflow-y: auto;
+    white-space: pre;
+    max-height: 500px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    padding: 8px;
+}
+
+// Main Div
+.main {
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 15px;
+        color: #444;
+    }
+}
+
+// System State
+.systemstate {
+    margin-bottom: 20px;
+}
+
+// States
+.state_green {
+    border-radius: 3px;
+    padding: 2px 5px;
+    color: #3c763d;
+    background: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
+.state_red {
+    border-radius: 3px;
+    padding: 2px 5px;
+    color: #a94442;
+    background: #f2dede;
+    border: 1px solid #ebccd1;
+}
+
+// Footer Styles
+footer {
+    margin-top: 20px;
+    padding: 15px;
+    background: #444;
+
+    .notice {
+        color: rgba(255,255,255,0.5);
+        font-size: 12px;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+// Tab Controls
+.tabcontrols {
+    margin: 0;
+    padding: 0;
+
+    .tab-nav {
+        margin-bottom: 0;
+
+        li {
+            a.button {
+                background: #fff;
+                border-bottom: 1px solid #bbb;
+            }
+        }
+    }
+
+    .tab-content {
+        background: #fff;
+        padding: 10px;
+        padding-top: 15px;
+        border: 1px solid #bbb;
+        border-top: none;
+    }
+}

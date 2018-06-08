@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gtm-agent-configmap
+data:
+  DOCKER_HOST: tcp://localhost:2375
+  GTM_AWS_REGION: ap-southeast-2
+  GTM_SQS_PENDING_QUEUE: gtmPendingQueue
+  GTM_SQS_RESULTS_QUEUE: gtmResultsQueue
+  GTM_SNS_RESULTS_TOPIC: gtmResultsSNSTopic
+  GTM_GITHUB_WEBHOOK_SECRET: ${GTM_GITHUB_WEBHOOK_SECRET}
+  GTM_AGENT_PORT: "9091"
+  GTM_AGENT_GROUP: ${GTM_AGENT_GROUP}
+  GTM_AGENT_CLOUDWATCH_LOGS_GROUP: ${GTM_AGENT_CLOUDWATCH_LOGS_GROUP}
+  GTM_AGENT_AWS_ACCESS_KEY_ID: ${GTM_AGENT_AWS_ACCESS_KEY_ID}
+  GTM_AGENT_AWS_SECRET_ACCESS_KEY: ${GTM_AGENT_AWS_SECRET_ACCESS_KEY}
+
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: gtm-agent-deployment
+  labels:
+    app: gtm-agent
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gtm-agent
+  template:
+    metadata:
+      labels:
+        app: gtm-agent
+    spec:
+      containers:
+        - name: gtm-agent
+          image: zotoio/github-task-manager:latest
+          envFrom:
+            - configMapRef:
+                name: gtm-agent-configmap
+          ports:
+            - containerPort: 9091
+
+        - name: docker-in-docker
+          image: docker:dind
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 2375
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: gtm-agent-service
+spec:
+  selector:
+    app: gtm-agent
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9091
+  type: LoadBalancer
+
+

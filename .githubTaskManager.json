@@ -1,0 +1,17 @@
+
+{
+  "pull_request": {
+    "tasks": [
+      {
+        "executor": "DockerSonar",
+        "context": "Scan PR",
+        "options": {
+          "env": {
+            "BUILD_TYPE": "maven",
+            "SONAR_BINARIES": "target"
+          }
+        }
+      }
+    ]
+  }
+}
